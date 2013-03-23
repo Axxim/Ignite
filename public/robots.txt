@@ -1,1 +1,3 @@
-User-agent: * Allow: /
+# robotstxt.org/
+
+User-agent: *
