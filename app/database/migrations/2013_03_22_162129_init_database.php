@@ -17,13 +17,15 @@ class InitDatabase extends Migration {
 
                 $table->string('short');
                 $table->string('full');
+                $table->string('ace');
                 $table->string('endpoint');
 
                 $table->timestamps();
             });
 
         // Insert Languages
-        Language::create(array('short' => 'php', 'full' => 'PHP', 'endpoint' => 'http://hades.run.ignite.io/run.php'));
+        Language::create(array('short' => 'php', 'full' => 'PHP', 'ace' => 'ace/mode/php', 'endpoint' => 'http://run.ignite.io/process'));
+        Language::create(array('short' => 'python', 'full' => 'Python', 'ace' => 'ace/mode/python', 'endpoint' => 'http://run.ignite.io/process'));
 
         // Create Users
         Schema::create('users', function($table) {

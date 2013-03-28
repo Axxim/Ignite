@@ -5,5 +5,5 @@ composer.lock
 .DS_Store
 /.idea
 /app/_ide_helper.php
-/config/local
-/config/production
+/app/config/local
+/app/config/production
