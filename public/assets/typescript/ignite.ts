@@ -4,7 +4,7 @@
 /// <reference path="def/jquery.cookie.d.ts" />
 
 interface IgniteIDocument {
-    content: string;
+    code: string;
     language: string;
     owner: string;
 }
@@ -13,7 +13,13 @@ class Ignite {
     hello = 'world';
 
     process(fire) {
+        console.log(fire);
+        $.post('/api/process', fire, function(data) {
+            if(data.status === false) alert(data.errors);
 
+            inspector.output.write(data.stdout);
+            inspector.debug.fill(data.debug);
+        });
     }
 }
 
@@ -36,7 +42,7 @@ class IgniteEditor {
 
         // Let's setup some events!
         this.context.getSession().on('change', function (e) {
-            //IgniteDocument.events.push() = e;
+            fire.code = editor.context.getValue();
         });
     }
 
@@ -109,12 +115,20 @@ module Inspector {
         constructor(container:string) {
             this.container = container;
         }
+
+        write(data: string) {
+            $(this.container).text(data);
+        }
     }
     export class Debug {
         container:string;
 
         constructor(container:string) {
             this.container = container;
+        }
+
+        fill(data: any) {
+            // @todo
         }
     }
     export class Console {
@@ -160,9 +174,9 @@ var editor = new IgniteEditor();
 var ignite = new Ignite();
 editor.layout();
 
-var IgniteDocument:IgniteIDocument = {
-    content: editor.context.getValue(),
-    language: null,
+var fire :IgniteIDocument = {
+    code: editor.context.getValue(),
+    language: editor.language.split("/").pop(),
     owner: 'anonymous'
 };
 
@@ -183,5 +197,10 @@ $('.theme').click(function (event) {
     editor.setTheme(newTheme, themeType);
 });
 
+$('.process').click(function(event) {
+    event.preventDefault();
+
+    ignite.process(fire);
+});
 
 /* Bootstrap */

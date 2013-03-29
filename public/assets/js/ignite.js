@@ -3,6 +3,14 @@ var Ignite = (function () {
         this.hello = 'world';
     }
     Ignite.prototype.process = function (fire) {
+        console.log(fire);
+        $.post('/api/process', fire, function (data) {
+            if(data.status === false) {
+                alert(data.errors);
+            }
+            inspector.output.write(data.stdout);
+            inspector.debug.fill(data.debug);
+        });
     };
     return Ignite;
 })();
@@ -15,6 +23,7 @@ var IgniteEditor = (function () {
         this.setLanguage(language);
         this.setTheme(theme, type);
         this.context.getSession().on('change', function (e) {
+            fire.code = editor.context.getValue();
         });
     }
     IgniteEditor.prototype.setLanguage = function (language) {
@@ -66,6 +75,9 @@ var Inspector;
         function Output(container) {
             this.container = container;
         }
+        Output.prototype.write = function (data) {
+            $(this.container).text(data);
+        };
         return Output;
     })();
     Inspector.Output = Output;    
@@ -73,6 +85,8 @@ var Inspector;
         function Debug(container) {
             this.container = container;
         }
+        Debug.prototype.fill = function (data) {
+        };
         return Debug;
     })();
     Inspector.Debug = Debug;    
@@ -110,9 +124,9 @@ var inspector = {
 var editor = new IgniteEditor();
 var ignite = new Ignite();
 editor.layout();
-var IgniteDocument = {
-    content: editor.context.getValue(),
-    language: null,
+var fire = {
+    code: editor.context.getValue(),
+    language: editor.language.split("/").pop(),
     owner: 'anonymous'
 };
 $('.language').click(function (event) {
@@ -125,4 +139,8 @@ $('.theme').click(function (event) {
     var newTheme = $(this).attr('data-theme-ace');
     var themeType = $(this).attr('data-theme-type');
     editor.setTheme(newTheme, themeType);
+});
+$('.process').click(function (event) {
+    event.preventDefault();
+    ignite.process(fire);
 });

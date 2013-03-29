@@ -38,7 +38,7 @@
             <a class="navbar-brand" href="#">Ignite</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="#"><span class="glyphicon glyphicon-play"></span></a></li>
+                    <li><a href="#" class="process"><span class="glyphicon glyphicon-play"></span></a></li>
                     <li class="dropdown">
                         <a href="#languages" class="dropdown-toggle" data-toggle="dropdown">Language
                             <b class="caret"></b></a>
@@ -59,7 +59,6 @@
                                     @endforeach
                                 </ul>
                             </li>
-
                             <li class="dropdown-submenu">
                                 <a tabindex="-1" href="#">Dark Themes</a>
                                 <ul class="dropdown-menu">
@@ -68,45 +67,6 @@
                                     @endforeach
                                 </ul>
                             </li>
-
-
-                            <!--
-                            <select id="theme" size="1">
-                                <optgroup label="Bright">
-                                    <li><a href="#ace/theme/chrome">Chrome</a></li>
-                                    <li><a href="#ace/theme/clouds">Clouds</a></li>
-                                    <li><a href="#ace/theme/crimson_editor">Crimson Editor</a></li>
-                                    <li><a href="#ace/theme/dawn">Dawn</a></li>
-                                    <li><a href="#ace/theme/dreamweaver">Dreamweaver</a></li>
-                                    <li><a href="#ace/theme/eclipse">Eclipse</a></li>
-                                    <li><a href="#ace/theme/github">GitHub</a></li>
-                                    <li><a href="#ace/theme/solarized_light">Solarized Light</a></li>
-                                    <li><a href="#ace/theme/textmate" selected="selected">TextMate</a></li>
-                                    <li><a href="#ace/theme/tomorrow">Tomorrow</a></li>
-                                    <li><a href="#ace/theme/xcode">XCode</a></li>
-                                </optgroup>
-                                <optgroup label="Dark">
-                                    <option value="ace/theme/ambiance">Ambiance</option>
-                                    <option value="ace/theme/chaos">Chaos</option>
-                                    <option value="ace/theme/clouds_midnight">Clouds Midnight</option>
-                                    <option value="ace/theme/cobalt">Cobalt</option>
-                                    <option value="ace/theme/idle_fingers">idleFingers</option>
-                                    <option value="ace/theme/kr_theme">krTheme</option>
-                                    <option value="ace/theme/merbivore">Merbivore</option>
-                                    <option value="ace/theme/merbivore_soft">Merbivore Soft</option>
-                                    <option value="ace/theme/mono_industrial">Mono Industrial</option>
-                                    <option value="ace/theme/monokai">Monokai</option>
-                                    <option value="ace/theme/pastel_on_dark">Pastel on dark</option>
-                                    <option value="ace/theme/solarized_dark">Solarized Dark</option>
-                                    <option value="ace/theme/twilight">Twilight</option>
-                                    <option value="ace/theme/tomorrow_night">Tomorrow Night</option>
-                                    <option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option>
-                                    <option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option>
-                                    <option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option>
-                                    <option value="ace/theme/vibrant_ink">Vibrant Ink</option>
-                                </optgroup>
-                            </select>
-                            -->
                         </ul>
                     </li>
                 </ul>
@@ -118,7 +78,20 @@
             <div class="pane ui-layout-center">
                 @yield('content')
 
-                <div id="editor"><?php echo htmlentities(file_get_contents('https://raw.github.com/ircmaxell/PHPPHP/master/lib/PHPPHP/PHP.php')); ?>
+                <div id="editor">&lt;?php
+// Welcome to Ignite
+// Ignite is a new way to share, run and save code.
+//
+// You can get started by simply writing code, or pasting your
+// existing code here. After that you can hit Play or Save.
+// Playing code automatically compiles and saves it.
+//
+// If you find any problems feel free to join us on irc at
+// irc.esper.net #axxim or email me at luke@axxim.net
+//
+// Site is copyright Axxim, LLC. Code is copyright the owner.
+
+echo &quot;Hello, World!&quot;;
 </div>
             </div>
 

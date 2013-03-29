@@ -44,6 +44,11 @@ body {
 /*
  * Inspector
  */
+#output {
+    font-family: 'SourceCodePro', monospace;
+    white-space: pre;
+    overflow-y: scroll;
+}
 #console {
     font-family: 'SourceCodePro', monospace;
     white-space: pre;

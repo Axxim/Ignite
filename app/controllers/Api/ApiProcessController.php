@@ -34,7 +34,7 @@ class ApiProcessController extends BaseController {
 
     private function php($language, $code, $options = false) {
         // Construct the post
-        $data = array('code' => $code);
+        $data = array('code' => $code, 'language' => $language->short);
 
         // Send the data and get the response.
         $response = Requests::post($language->endpoint, array(), $data);
