@@ -3,22 +3,17 @@ var Ignite = (function () {
         this.hello = 'world';
     }
     Ignite.prototype.process = function (fire) {
-        $.ajax({
-            url: "/api/process",
-            data: fire
-        }).done(function (data) {
-            if(console && console.log) {
-                console.log("Sample of data:", data.slice(0, 100));
-            }
-        });
     };
     return Ignite;
 })();
 var IgniteEditor = (function () {
     function IgniteEditor() {
         this.context = ace.edit("editor");
-        this.setLanguage("ace/mode/php");
-        this.setTheme("ace/theme/crimson_editor", 'light');
+        var language = $.cookie('language') || 'ace/mode/php';
+        var theme = $.cookie('theme_ace') || 'ace/theme/crimson_editor';
+        var type = $.cookie('theme_type') || 'light';
+        this.setLanguage(language);
+        this.setTheme(theme, type);
         this.context.getSession().on('change', function (e) {
         });
     }
@@ -26,6 +21,7 @@ var IgniteEditor = (function () {
         $('.language').parent().removeClass('disabled');
         $("a[data-language-ace='" + language + "']").parent().addClass('disabled');
         inspector.console.log('Changed Language: ' + language);
+        $.cookie('language', language);
         this.context.getSession().setMode(language);
         this.language = language;
     };
@@ -38,6 +34,8 @@ var IgniteEditor = (function () {
             $('.navbar').addClass('navbar-inverse');
         }
         inspector.console.log('Changed Theme: ' + theme);
+        $.cookie('theme_ace', theme);
+        $.cookie('theme_type', type);
         this.context.setTheme(theme);
         this.theme = theme;
     };

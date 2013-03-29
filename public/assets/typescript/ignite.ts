@@ -1,6 +1,7 @@
 /// <reference path="def/jquery.d.ts" />
 /// <reference path="def/ace.d.ts" />
 /// <reference path="def/jquery.layout.d.ts" />
+/// <reference path="def/jquery.cookie.d.ts" />
 
 interface IgniteIDocument {
     content: string;
@@ -12,14 +13,7 @@ class Ignite {
     hello = 'world';
 
     process(fire) {
-        $.ajax({
-            url: "/api/process",
-            data: fire
-        }).done(function ( data ) {
-                if( console && console.log ) {
-                    console.log("Sample of data:", data.slice(0, 100));
-                }
-            });
+
     }
 }
 
@@ -31,8 +25,13 @@ class IgniteEditor {
     constructor() {
         this.context = ace.edit("editor");
 
-        this.setLanguage("ace/mode/php");
-        this.setTheme("ace/theme/crimson_editor", 'light');
+        // check for a saved cookie
+        var language = $.cookie('language') || 'ace/mode/php';
+        var theme = $.cookie('theme_ace') || 'ace/theme/crimson_editor';
+        var type = $.cookie('theme_type') || 'light';
+
+        this.setLanguage(language);
+        this.setTheme(theme, type);
 
 
         // Let's setup some events!
@@ -49,6 +48,8 @@ class IgniteEditor {
         $("a[data-language-ace='" + language + "']").parent().addClass('disabled');
 
         inspector.console.log('Changed Language: ' + language);
+
+        $.cookie('language', language);
 
         this.context.getSession().setMode(language);
         this.language = language;
@@ -70,6 +71,8 @@ class IgniteEditor {
 
         inspector.console.log('Changed Theme: ' + theme);
 
+        $.cookie('theme_ace', theme);
+        $.cookie('theme_type', type);
 
         this.context.setTheme(theme);
         this.theme = theme;
