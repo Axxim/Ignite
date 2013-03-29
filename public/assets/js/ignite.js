@@ -2,8 +2,15 @@ var Ignite = (function () {
     function Ignite() {
         this.hello = 'world';
     }
-    Ignite.prototype.process = function () {
-        $();
+    Ignite.prototype.process = function (fire) {
+        $.ajax({
+            url: "/api/process",
+            data: fire
+        }).done(function (data) {
+            if(console && console.log) {
+                console.log("Sample of data:", data.slice(0, 100));
+            }
+        });
     };
     return Ignite;
 })();
@@ -15,15 +22,12 @@ var IgniteEditor = (function () {
         this.context.getSession().on('change', function (e) {
         });
     }
-    IgniteEditor.prototype.getLanguage = function () {
-        var language = 'derp';
-        return language;
-    };
     IgniteEditor.prototype.setLanguage = function (language) {
         $('.language').parent().removeClass('disabled');
         $("a[data-language-ace='" + language + "']").parent().addClass('disabled');
         inspector.console.log('Changed Language: ' + language);
         this.context.getSession().setMode(language);
+        this.language = language;
     };
     IgniteEditor.prototype.setTheme = function (theme, type) {
         $('.theme').parent().removeClass('disabled');
@@ -35,6 +39,7 @@ var IgniteEditor = (function () {
         }
         inspector.console.log('Changed Theme: ' + theme);
         this.context.setTheme(theme);
+        this.theme = theme;
     };
     IgniteEditor.prototype.layout = function () {
         $('#content').layout({

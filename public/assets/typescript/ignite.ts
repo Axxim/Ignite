@@ -11,13 +11,22 @@ interface IgniteIDocument {
 class Ignite {
     hello = 'world';
 
-    process() {
-        $()
+    process(fire) {
+        $.ajax({
+            url: "/api/process",
+            data: fire
+        }).done(function ( data ) {
+                if( console && console.log ) {
+                    console.log("Sample of data:", data.slice(0, 100));
+                }
+            });
     }
 }
 
 class IgniteEditor {
     context:any;
+    language:any;
+    theme:any;
 
     constructor() {
         this.context = ace.edit("editor");
@@ -27,16 +36,11 @@ class IgniteEditor {
 
 
         // Let's setup some events!
-        this.context.getSession().on('change', function(e) {
+        this.context.getSession().on('change', function (e) {
             //IgniteDocument.events.push() = e;
         });
     }
 
-    getLanguage() {
-        var language = 'derp';
-
-        return language;
-    }
     setLanguage(language:string) {
         // Remove all other highlights
         $('.language').parent().removeClass('disabled');
@@ -47,6 +51,7 @@ class IgniteEditor {
         inspector.console.log('Changed Language: ' + language);
 
         this.context.getSession().setMode(language);
+        this.language = language;
     }
 
     setTheme(theme:string, type:string) {
@@ -67,6 +72,7 @@ class IgniteEditor {
 
 
         this.context.setTheme(theme);
+        this.theme = theme;
     }
 
     layout() {
@@ -115,21 +121,22 @@ module Inspector {
             this.container = container;
         }
 
-        log(message: string) {
+        log(message:string) {
             var timestamp = Math.round((new Date()).getTime() / 1000);
 
             $(this.container).append('[' + timestamp + '] ' + message + '<br>');
         }
-        error(message: string) {
+
+        error(message:string) {
             var timestamp = Math.round((new Date()).getTime() / 1000);
 
             $(this.container).append('<span style="color: red">[' + timestamp + '] ' + message + '</span><br>');
         }
 
-        write(status: string, message:string) {
-            if(status === 'log') {
+        write(status:string, message:string) {
+            if (status === 'log') {
                 this.log(message);
-            } else if(status === 'error') {
+            } else if (status === 'error') {
                 this.error(message);
             }
         }
@@ -150,7 +157,7 @@ var editor = new IgniteEditor();
 var ignite = new Ignite();
 editor.layout();
 
-var IgniteDocument: IgniteIDocument = {
+var IgniteDocument:IgniteIDocument = {
     content: editor.context.getValue(),
     language: null,
     owner: 'anonymous'

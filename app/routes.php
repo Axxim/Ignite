@@ -13,14 +13,11 @@
 
 Route::get('/', function()
 {
-	return View::make('layouts.master');
+    return View::make('layouts.master');
 });
-
 
 Route::group(array('prefix' => 'api'), function()
 {
-
     Route::resource('document', 'ApiDocumentController');
     Route::controller('process', 'ApiProcessController');
-
 });
