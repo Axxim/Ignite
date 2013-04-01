@@ -21,9 +21,10 @@ class ApiProcessController extends BaseController {
         // Check if language is supported, if so allow through
         $language = Language::where('short', '=', $input['language'])->first();
         if($language) {
-            $code = urldecode($input['code']);
+            $code = $input['code'];
+            $owner = $input['owner'];
 
-            $response = call_user_func_array(array('ApiProcessController', $language->short), array($language, $code));
+            $response = call_user_func_array(array('ApiProcessController', $language->short), array($language, $code, $owner));
 
             return Response::json($response);
         } else {
@@ -32,9 +33,9 @@ class ApiProcessController extends BaseController {
         }
     }
 
-    private function php($language, $code, $options = false) {
+    private function php($language, $code, $owner, $options = false) {
         // Construct the post
-        $data = array('code' => $code, 'language' => $language->short);
+        $data = array('code' => $code, 'language' => $language->short, 'owner' => $owner);
 
         // Send the data and get the response.
         $response = Requests::post($language->endpoint, array(), $data);

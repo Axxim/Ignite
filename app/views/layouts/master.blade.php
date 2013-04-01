@@ -10,7 +10,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title>@section('title')
+            Ignite
+            @show</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -35,9 +37,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Ignite</a>
+            <a class="navbar-brand" href="/">Ignite</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
+                    @section('navigation')
                     <li><a href="#" class="process"><span class="glyphicon glyphicon-play"></span></a></li>
                     <li class="dropdown">
                         <a href="#languages" class="dropdown-toggle" data-toggle="dropdown">Language
@@ -69,6 +72,25 @@
                             </li>
                         </ul>
                     </li>
+                    @show
+                </ul>
+                <ul class="nav pull-right">
+                    @if (!Sentry::check())
+                    <li><a href="/account/login">Login</a></li>
+                    <li><a href="/account/register">Register</a></li>
+                    @else
+
+                    <li><a href="/user/{{Sentry::getUser()->username}}">{{Sentry::getUser()->username}}</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Filler</a></li>
+                            <li><a href="#">Filler</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/account/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    @endif
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -76,23 +98,9 @@
         <div id="content">
 
             <div class="pane ui-layout-center">
+                <div class="container">
                 @yield('content')
-
-                <div id="editor">&lt;?php
-// Welcome to Ignite
-// Ignite is a new way to share, run and save code.
-//
-// You can get started by simply writing code, or pasting your
-// existing code here. After that you can hit Play or Save.
-// Playing code automatically compiles and saves it.
-//
-// If you find any problems feel free to join us on irc at
-// irc.esper.net #axxim or email me at luke@axxim.net
-//
-// Site is copyright Axxim, LLC. Code is copyright the owner.
-
-echo &quot;Hello, World!&quot;;
-</div>
+                </div>
             </div>
 
             <div class="pane ui-layout-south">
@@ -153,6 +161,7 @@ echo &quot;Hello, World!&quot;;
         <script src="/assets/js/vendor/bootstrap.min.js"></script>
         <script src="/assets/js/vendor/mustache.js"></script>
         <script src="/assets/js/vendor/ace/ace.js"></script>
+        <script src="/assets/js/vendor/keyboard.js"></script>
         <script src="/assets/js/vendor/jquery.layout-latest.min.js"></script>
 
         <script src="/assets/js/ignite.js"></script>

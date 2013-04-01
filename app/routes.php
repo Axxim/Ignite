@@ -13,8 +13,11 @@
 
 Route::get('/', function()
 {
-    return View::make('layouts.master');
+    return View::make('home');
 });
+
+Route::controller('account', 'AccountController');
+
 
 Route::group(array('prefix' => 'api'), function()
 {

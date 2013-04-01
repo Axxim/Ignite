@@ -144,3 +144,6 @@ $('.process').click(function (event) {
     event.preventDefault();
     ignite.process(fire);
 });
+KeyboardJS.on('ctrl + enter', function () {
+    $('.process').click();
+});

@@ -27,19 +27,6 @@ class InitDatabase extends Migration {
         Language::create(array('short' => 'php', 'full' => 'PHP', 'ace' => 'ace/mode/php', 'endpoint' => 'http://run.ignite.io/process'));
         Language::create(array('short' => 'python', 'full' => 'Python', 'ace' => 'ace/mode/python', 'endpoint' => 'http://run.ignite.io/process'));
 
-        // Create Users
-        Schema::create('users', function($table) {
-                $table->increments('id');
-
-                $table->string('username')->unique();
-                $table->string('password');
-                $table->string('email')->unique();
-                $table->string('api_key', 255);
-                $table->integer('group');
-
-                $table->timestamps();
-            });
-
         // Create Documents
         Schema::create('documents', function ($table) {
                 $table->string('id')->primary();

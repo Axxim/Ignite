@@ -2,6 +2,7 @@
 /// <reference path="def/ace.d.ts" />
 /// <reference path="def/jquery.layout.d.ts" />
 /// <reference path="def/jquery.cookie.d.ts" />
+/// <reference path="def/keyboardjs.d.ts" />
 
 interface IgniteIDocument {
     code: string;
@@ -203,4 +204,7 @@ $('.process').click(function(event) {
     ignite.process(fire);
 });
 
-/* Bootstrap */
+
+KeyboardJS.on('ctrl + enter', function() {
+    $('.process').click();
+});
