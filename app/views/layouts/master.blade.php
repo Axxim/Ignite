@@ -37,7 +37,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Ignite</a>
+            <a class="navbar-brand" href="/">Ignite {{ucwords(App::environment())}}</a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     @section('navigation')

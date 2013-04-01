@@ -88,8 +88,9 @@ class AccountController extends BaseController
                      'password' => $input['password']
                 )
             );
+            $activationCode = $user->getActivationCode();
 
-            Event::fire('user.register', array($user));
+            Event::fire('user.register', array($user, $activationCode));
 
             return Redirect::to('account/thanks');
 

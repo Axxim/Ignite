@@ -13,7 +13,7 @@
     <p>Anyways, here's the stuff you need to know to login: </p>
 
     <ol>
-        <li><a href="{{ URL::to('account/validate', array($user->email, $user->getActivationCode())) }}">Authorize Your Email</a></li>
+        <li><a href="{{ URL::to('account/validate', array($user->email, $activationCode)) }}">Authorize Your Email</a></li>
         <li>Start Editing!</li>
     </ol>
 
