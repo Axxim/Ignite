@@ -68,8 +68,8 @@ class AccountController extends BaseController
         $input = Input::all();
 
         $rules = array(
-            'username'         => 'required|min:2|max:32',
-            'email'            => 'required|email',
+            'username'         => 'required|min:2|max:32|unique:users',
+            'email'            => 'required|email|unique:users',
             'password'         => 'required|min:6',
             'password_confirm' => 'required|same:password'
         );
@@ -83,7 +83,7 @@ class AccountController extends BaseController
         try {
             $user = Sentry::register(
                 array(
-                     'username' => $input['username'],
+                     'username' => mb_strtolower($input['username']),
                      'email'    => $input['email'],
                      'password' => $input['password']
                 )
