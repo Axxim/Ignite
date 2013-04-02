@@ -66,3 +66,12 @@ App::error(function(Exception $exception, $code)
 */
 
 require __DIR__.'/../filters.php';
+
+
+/*
+ *
+ * Events
+ *
+ */
+
+Event::listen('user.register', 'UserHandler@onRegister');
